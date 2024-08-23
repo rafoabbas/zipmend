@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Models\Common\ApiLog;
+use App\Repositories\Contracts\Common\ApiLogRepositoryInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
@@ -25,7 +26,7 @@ class ApiLogQueue implements ShouldQueue
 
     public function handle(): void
     {
-        ApiLog::query()->create([
+        app(ApiLogRepositoryInterface::class)->createQuery()->create([
             'connection_ip' => $this->connectionIp,
             'headers' => $this->headers,
             'request' => $this->request,

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories\Eloquent\Account;
 
 use App\Models\Account\ApiKey;
 use App\Repositories\Contracts\Account\ApiKeyRepositoryInterface;
+use App\Repositories\Eloquent\EloquentRepository;
 
 class ApiKeyRepository extends EloquentRepository implements ApiKeyRepositoryInterface
 {
@@ -13,7 +14,7 @@ class ApiKeyRepository extends EloquentRepository implements ApiKeyRepositoryInt
     }
 
     public function getFromApiKey(string $apiKey): ?ApiKey
-{
+    {
         return $this->createQuery()
             ->where('api_key', '=', $apiKey)
             ->first();
