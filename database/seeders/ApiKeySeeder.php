@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 class ApiKeySeeder extends Seeder
 {
     public string $key = 'm5tLMBL5I4Vv4Bl3N7e3o5';
+
     /**
      * Run the database seeds.
      */

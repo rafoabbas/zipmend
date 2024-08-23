@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiKeyAuthentication
 {
-    public function __construct(public ApiKeyService $service)
-    {
-    }
+    public function __construct(public ApiKeyService $service) {}
 
     public function handle(Request $request, Closure $next, string $permission = 'calculate'): Response
     {
@@ -22,8 +20,7 @@ class ApiKeyAuthentication
             ->setRequest($request)
             ->setPermission($permission);
 
-        if ($this->service->invalidApiKey())
-        {
+        if ($this->service->invalidApiKey()) {
             $data = [
                 'message' => $this->service->getErrorMessage(),
             ];

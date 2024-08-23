@@ -4,7 +4,6 @@ namespace App\Traits\Services;
 
 trait HasPermission
 {
-
     public string $permission;
 
     public function getPermission(): string
@@ -15,6 +14,7 @@ trait HasPermission
     public function setPermission(string $permission): self
     {
         $this->permission = $permission;
+
         return $this;
     }
 }

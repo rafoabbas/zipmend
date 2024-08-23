@@ -9,8 +9,6 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->register(RepositoryServiceProvider::class);
-
         Request::macro('clientIp', function () {
             if ($cloudflareIp = $this->input('metadata.cf-connecting-ip')) {
                 return $cloudflareIp;

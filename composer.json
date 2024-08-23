@@ -7,11 +7,12 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "mongodb/laravel-mongodb": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.17",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
@@ -30,6 +31,8 @@
         }
     },
     "scripts": {
+        "test:lint": "vendor/bin/pint --test",
+        "lint": "vendor/bin/pint -v",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

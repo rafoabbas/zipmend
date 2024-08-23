@@ -13,10 +13,10 @@ use Illuminate\Support\Str;
 class ApiKeyService
 {
     use HasApiLog;
-    use HasError;
-    use HasRequest;
-    use HasPermission;
     use HasBase64Decoder;
+    use HasError;
+    use HasPermission;
+    use HasRequest;
 
     public ?string $apiKey = null;
 
@@ -24,16 +24,13 @@ class ApiKeyService
 
     public function __construct(
         public ApiKeyRepositoryInterface $repository
-    ) {
-    }
-
-
+    ) {}
 
     public function invalidApiKey(): bool
     {
         $this->rawApiKey = $this->getApiKeyFromRequest();
 
-        if ($this->rawApiKey === null || $this->decode($this->rawApiKey) === null) {
+        if (! $this->isValidApiKey($this->rawApiKey)) {
             $this->setErrorMessage('Invalid API key');
 
             return true;
@@ -41,22 +38,30 @@ class ApiKeyService
 
         $apiKey = $this->repository->getFromApiKey($this->getApiKey());
 
-        if ($apiKey) {
-            if ($apiKey->checkLastExpired()) {
-                $this->setErrorMessage('API key has expired');
-                return true;
-            }
+        if (! $apiKey) {
+            $this->setErrorMessage('Api Key not found');
 
-            if ($apiKey->checkPermission($this->getPermission())) {
-                $this->setErrorMessage('Permission denied');
-
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
-        return true;
+        if ($apiKey->checkLastExpired()) {
+            $this->setErrorMessage('API key has expired');
+
+            return true;
+        }
+
+        if ($apiKey->checkPermission($this->getPermission())) {
+            $this->setErrorMessage('Permission denied');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isValidApiKey(?string $apiKey): bool
+    {
+        return $apiKey !== null && $this->decode($apiKey) !== null;
     }
 
     protected function getApiKeyFromRequest(): ?string

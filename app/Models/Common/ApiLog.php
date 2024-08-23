@@ -18,7 +18,7 @@ class ApiLog extends Model
         'request',
         'response',
         'method',
-        'created_at'
+        'created_at',
     ];
 
     protected function casts(): array

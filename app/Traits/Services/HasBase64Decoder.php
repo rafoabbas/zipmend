@@ -8,7 +8,7 @@ trait HasBase64Decoder
     {
         $decoded = base64_decode($string, true);
 
-        if (false === $decoded) {
+        if ($decoded === false) {
             return null;
         }
 

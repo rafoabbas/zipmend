@@ -5,7 +5,6 @@ namespace App\Models\Account;
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 class ApiKey extends Model
 {
@@ -16,16 +15,16 @@ class ApiKey extends Model
         'status',
         'permissions',
         'last_used_at',
-        'last_expired_at'
+        'last_expired_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'status' => Status::class,
-            'permissions' => 'array',
-            'last_used_at' => 'datetime',
-            'last_expired_at' => 'datetime'
+            'status'          => Status::class,
+            'permissions'     => 'array',
+            'last_used_at'    => 'datetime',
+            'last_expired_at' => 'datetime',
         ];
     }
 
@@ -42,7 +41,7 @@ class ApiKey extends Model
     public function updateLastUsed(): bool
     {
         return $this->update([
-            'last_used_at' => now()
+            'last_used_at' => now(),
         ]);
     }
 }
