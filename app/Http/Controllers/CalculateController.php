@@ -8,7 +8,6 @@ use App\Http\Requests\CityRequest;
 use App\Http\Resources\CalculateResource;
 use App\Models\Mongo\VehicleType;
 use App\Services\CalculateService;
-use Illuminate\Support\Arr;
 
 class CalculateController extends Controller
 {

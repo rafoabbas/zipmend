@@ -15,7 +15,7 @@ class CalculateService
     public static function rules(): array
     {
         return [
-            'addresses'           => ['required', 'array','min:2'],
+            'addresses'           => ['required', 'array', 'min:2'],
             'addresses.*.country' => ['required', 'string', 'min:2', 'max:2', new CountryRule],
             'addresses.*.zip'     => ['required', 'string', new ZipRule],
             'addresses.*.city'    => ['required', 'string', new CityRule],

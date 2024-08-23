@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     //TODO: Since I have a connection to MongoDB, I didn’t use this.
-//    use LazilyRefreshDatabase;
+    use LazilyRefreshDatabase;
 
     public function appKey(array $overrides = []): ApiKey
     {

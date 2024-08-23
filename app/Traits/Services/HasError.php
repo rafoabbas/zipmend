@@ -4,9 +4,9 @@ namespace App\Traits\Services;
 
 trait HasError
 {
-    protected string $errorMessage;
+    protected ?string $errorMessage = null;
 
-    public function getErrorMessage(): string
+    public function getErrorMessage(): ?string
     {
         return $this->errorMessage;
     }

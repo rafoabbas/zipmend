@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class ApiKeyAuthenticationMiddlewareTest extends TestCase
+class ApiKeyAuthenticationTest extends TestCase
 {
     public function test_api_key_empty_header()
     {
@@ -77,7 +77,7 @@ class ApiKeyAuthenticationMiddlewareTest extends TestCase
     public function test_api_key_permission_denied()
     {
         $apiKey = $this->appKey([
-            'permissions' => []
+            'permissions' => [],
         ]);
 
         $response = $this
@@ -101,7 +101,7 @@ class ApiKeyAuthenticationMiddlewareTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', []);

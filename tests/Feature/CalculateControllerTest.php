@@ -2,10 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Http\Resources\CalculateResource;
-use App\Models\Account\ApiKey;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CalculateControllerTest extends TestCase
@@ -19,7 +15,7 @@ class CalculateControllerTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', []);
@@ -28,7 +24,7 @@ class CalculateControllerTest extends TestCase
             ->assertJsonValidationErrorFor('addresses')
             ->assertJsonStructure([
                 'message',
-                'errors' => []
+                'errors' => [],
             ]);
 
         $message = $response->json('message');
@@ -42,11 +38,11 @@ class CalculateControllerTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
-                'addresses' => 'string'
+                'addresses' => 'string',
             ]);
 
         $response->assertStatus(422);
@@ -62,17 +58,17 @@ class CalculateControllerTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
                 'addresses' => [
                     [
-                        "country" => "DE",
-                        "zip" => "10115",
-                        "city" => "Berlin"
-                    ]
-                ]
+                        'country' => 'DE',
+                        'zip'     => '10115',
+                        'city'    => 'Berlin',
+                    ],
+                ],
             ]);
 
         $response->assertStatus(422);
@@ -82,35 +78,34 @@ class CalculateControllerTest extends TestCase
         $this->assertEquals('The addresses field must have at least 2 items.', $message);
     }
 
-
     public function test_invalid_country(): void
     {
         $apiKey = $this->appKey();
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
                 'addresses' => [
                     [
-                        "country" => "AZ",
-                        "zip" => "1000",
-                        "city" => "Baku"
+                        'country' => 'AZ',
+                        'zip'     => '1000',
+                        'city'    => 'Baku',
                     ],
                     [
-                        "country" => "AZ",
-                        "zip" => "4400",
-                        "city" => "Masalli"
+                        'country' => 'AZ',
+                        'zip'     => '4400',
+                        'city'    => 'Masalli',
                     ],
-                ]
+                ],
             ]);
 
         $response->assertStatus(422)
             ->assertJsonStructure([
                 'message',
-                'errors' => []
+                'errors' => [],
             ]);
 
         $message = $response->json('message');
@@ -124,28 +119,28 @@ class CalculateControllerTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
                 'addresses' => [
                     [
-                        "country" => "DE",
-                        "zip" => "1000",
-                        "city" => "Baku"
+                        'country' => 'DE',
+                        'zip'     => '1000',
+                        'city'    => 'Baku',
                     ],
                     [
-                        "country" => "DE",
-                        "zip" => "4400",
-                        "city" => "Masalli"
+                        'country' => 'DE',
+                        'zip'     => '4400',
+                        'city'    => 'Masalli',
                     ],
-                ]
+                ],
             ]);
 
         $response->assertStatus(422)
             ->assertJsonStructure([
                 'message',
-                'errors' => []
+                'errors' => [],
             ]);
 
         $message = $response->json('message');
@@ -153,35 +148,34 @@ class CalculateControllerTest extends TestCase
         $this->assertStringContainsString('The zip code 1000 does not exist.', $message);
     }
 
-
     public function test_invalid_city(): void
     {
         $apiKey = $this->appKey();
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
                 'addresses' => [
                     [
-                        "country" => "DE",
-                        "zip" => "20095",
-                        "city" => "Baku"
+                        'country' => 'DE',
+                        'zip'     => '20095',
+                        'city'    => 'Baku',
                     ],
                     [
-                        "country" => "DE",
-                        "zip" => "10115",
-                        "city" => "Masalli"
+                        'country' => 'DE',
+                        'zip'     => '10115',
+                        'city'    => 'Masalli',
                     ],
-                ]
+                ],
             ]);
 
         $response->assertStatus(422)
             ->assertJsonStructure([
                 'message',
-                'errors' => []
+                'errors' => [],
             ]);
 
         $message = $response->json('message');
@@ -195,22 +189,22 @@ class CalculateControllerTest extends TestCase
 
         $response = $this
             ->withHeaders([
-                'Accept' => 'application/json',
+                'Accept'         => 'application/json',
                 'Authentication' => 'Basic ' . base64_encode($apiKey->api_key),
             ])
             ->post('/api/v1/calculate', [
                 'addresses' => [
                     [
-                        "country" => "DE",
-                        "zip" => "10115",
-                        "city" => "Berlin"
+                        'country' => 'DE',
+                        'zip'     => '10115',
+                        'city'    => 'Berlin',
                     ],
                     [
-                        "country" => "DE",
-                        "zip" => "20095",
-                        "city" => "Hamburg"
+                        'country' => 'DE',
+                        'zip'     => '20095',
+                        'city'    => 'Hamburg',
                     ],
-                ]
+                ],
             ]);
 
         $response->assertStatus(200);
