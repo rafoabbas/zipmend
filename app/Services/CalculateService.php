@@ -35,9 +35,9 @@ class CalculateService
             $destination = $cities[$i + 1];
 
             $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
-                'origins' => $origin,
+                'origins'      => $origin,
                 'destinations' => $destination,
-                'key' => $apiKey,
+                'key'          => $apiKey,
             ]);
 
             $data = $response->json();
@@ -65,7 +65,6 @@ class CalculateService
         $origins = implode('|', $this->getCities());
 
         $destinations = implode('|', $this->getCities());
-
 
         // Send the Google Distance Matrix API request.
         $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [

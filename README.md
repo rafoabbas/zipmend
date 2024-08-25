@@ -75,4 +75,5 @@ echo $response;
 3. When creating an API key for the client, you can add permissions and an expiration time to the API key.
 4. All requests to the API and all responses from the API are logged in the "api_logs" table, which will be very useful when resolving any issues that arise from the client.
 5. result.png - The response from my code, along with the Google Maps comparison, is available in result.png
-6. Tests: 24 passed (57 assertions)
+6. I used Laravel Pint to format the code.
+7. Tests: 24 passed (57 assertions)
