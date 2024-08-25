@@ -36,6 +36,6 @@ class CalculateServiceTest extends TestCase
 
         $this->assertTrue(is_numeric($distance));
 
-        $this->assertEquals(2872.773, $distance);
+        $this->assertEquals(1012, $distance);
     }
 }

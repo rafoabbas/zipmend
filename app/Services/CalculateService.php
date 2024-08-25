@@ -26,9 +26,46 @@ class CalculateService
     {
         $apiKey = config('services.google.maps.key');
 
+        $cities = $this->getCities();
+
+        $totalDistance = 0;
+
+        for ($i = 0; $i < count($cities) - 1; $i++) {
+            $origin = $cities[$i];
+            $destination = $cities[$i + 1];
+
+            $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
+                'origins' => $origin,
+                'destinations' => $destination,
+                'key' => $apiKey,
+            ]);
+
+            $data = $response->json();
+
+            if ($response->successful() && isset($data['rows'][0]['elements'][0]['distance']['value'])) {
+                $distance = $data['rows'][0]['elements'][0]['distance']['value'];
+                $totalDistance += $distance; // Mesafeyi metre cinsinden ekler
+            } else {
+                throw ValidationException::withMessages([
+                    'username' => trans('Api error'),
+                ]);
+            }
+        }
+
+        // Convert the total distance to kilometers and return it.
+        return floor($totalDistance / 1000);
+    }
+
+    //TODO: bu ilk fonksiyadı bundan tam əmin ola bilmədim
+    public function getTotalDistanceDeprecate(): float|int
+    {
+        $apiKey = config('services.google.maps.key');
+
         // Convert the cities into a comma-separated string.
         $origins = implode('|', $this->getCities());
+
         $destinations = implode('|', $this->getCities());
+
 
         // Send the Google Distance Matrix API request.
         $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
