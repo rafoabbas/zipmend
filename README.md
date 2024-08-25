@@ -9,6 +9,7 @@ The total distance between cities in the database is measured using Google API t
 - composer install
 - php artisan key generate
 - DB_URI="mongodb connection url"
+- php artisan migrate
 - php artisan db:seed
 
 ### API 
