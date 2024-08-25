@@ -65,3 +65,11 @@ curl_close($curl);
 
 echo $response;
 ```
+
+### Important
+
+1. The project utilizes the modern architecture of the Repository and Service pattern.
+2. The validation rules I wrote will return an error for whichever of the City, Country, or Zip Code fields has a mistake.
+3. When creating an API key for the client, you can add permissions and an expiration time to the API key.
+4. All requests to the API and all responses from the API are logged in the "api_logs" table, which will be very useful when resolving any issues that arise from the client.
+5. result.png - The response from my code, along with the Google Maps comparison, is available in result.png
